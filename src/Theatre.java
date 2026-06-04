@@ -1,5 +1,5 @@
 import Shows.Ballet;
-import Shows.MusicialShow;
+import Shows.MusicalShow;
 import Shows.Opera;
 import Shows.Show;
 import Workers.*;
@@ -8,7 +8,6 @@ import Workers.*;
 public class Theatre {
     private static final String SWAN_LAKE_LIBRETTO = "Либретто для лебединого озера";
     private static final String PRINCE_IGOR_LIBRETTO = "Либретто для \"Князя Игоря\"";
-
 
     public static void main(String[] args) {
         System.out.println("========================DRAMATIC===================================");
@@ -34,7 +33,7 @@ public class Theatre {
 
         System.out.println("\n=================================BALLET==================================\n");
 
-        MusicialShow ballet = new Ballet("Лебединое озеро", 155, SWAN_LAKE_LIBRETTO);
+        MusicalShow ballet = new Ballet("Лебединое озеро", 155, SWAN_LAKE_LIBRETTO);
         printActorsOfShow(ballet); //for test
 
         Actor actor4 = new Actor("Сергей", "Лемешев", Genders.MALE, 167);
@@ -60,7 +59,7 @@ public class Theatre {
 
         System.out.println("\n=======================OPERA====================================\n");
 
-        MusicialShow opera = new Opera("Князь Игорь", 210, 15);
+        MusicalShow opera = new Opera("Князь Игорь", 210, 15);
 
         addActor(opera, actor1);
         addActor(opera, actor3);
@@ -87,8 +86,8 @@ public class Theatre {
         replaceActor(show, actor4, actor4);
     }
 
-    private static void setLibretto(MusicialShow musicialShow, String libretto) {
-        musicialShow.setLibretto(libretto);
+    private static void setLibretto(MusicalShow musicalShow, String libretto) {
+        musicalShow.setLibretto(libretto);
         System.out.println("Либретто установлено\n");
     }
 
@@ -109,8 +108,8 @@ public class Theatre {
             System.out.println("Хореограф " + choreographer + " успешно добавлена");
     }
 
-    private static void addAuthorOfMusic(MusicialShow musicialShow, AuthorOfMusic authorOfMusic) {
-        if (!musicialShow.addAuthorOfMusic(authorOfMusic)) {
+    private static void addAuthorOfMusic(MusicalShow musicalShow, AuthorOfMusic authorOfMusic) {
+        if (!musicalShow.addAuthorOfMusic(authorOfMusic)) {
             if (authorOfMusic.getGender() == Genders.MALE)
                 System.out.println(authorOfMusic + " уже добавлен\n");
             else
@@ -182,7 +181,7 @@ public class Theatre {
         }
 
         System.out.println("Актерский состав: ");
-        System.out.println(show.getActors() + "\n");
+        System.out.println(actors + "\n");
     }
 
     private static void printDirectorsOfShow(Show show) {
@@ -196,23 +195,35 @@ public class Theatre {
         System.out.println(directors);
     }
 
-    private static void printLibrettoOfMusicShow(MusicialShow musicialShow) {
-        String libretto = musicialShow.getLibretto();
+    private static void printLibrettoOfMusicShow(MusicalShow musicalShow) {
+        String libretto = musicalShow.getLibretto();
         if (libretto.isEmpty()) {
             System.out.println("У представления пока нет либретто\n");
             return;
         }
+        System.out.println("Либретто:");
         System.out.println(libretto + "\n");
     }
 
-    private static void printAuthorsOfMusicShow(MusicialShow musicialShow) {
-        var authorsOfMusic = musicialShow.getAuthorsOfMusic();
+    private static void printAuthorsOfMusicShow(MusicalShow musicalShow) {
+        var authorsOfMusic = musicalShow.getAuthorsOfMusic();
         if (authorsOfMusic.isEmpty()) {
             System.out.println("Композиции пока не добавлены");
             return;
         }
 
         System.out.println("Авторы композиций:");
-        System.out.println(musicialShow.getAuthorsOfMusic() + "\n");
+        System.out.println(authorsOfMusic + "\n");
+    }
+
+    private static void printChoreographers(Ballet ballet) {
+        var choreographers = ballet.getChoreographers();
+        if (choreographers.isEmpty()) {
+            System.out.println("Хореографы пока не добавлены");
+            return;
+        }
+
+        System.out.println("Хореографы");
+        System.out.println(choreographers + "\n");
     }
 }

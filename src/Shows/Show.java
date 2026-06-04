@@ -13,10 +13,10 @@ public class Show {
         NEW_ACTOR_ALREADY_EXIST
     }
 
-    protected String title;
-    protected int duration; //in minutes
-    protected ArrayList<Actor> actors;
-    protected ArrayList<Director> directors;
+    private String title;
+    private int duration; //in minutes
+    private ArrayList<Actor> actors;
+    private ArrayList<Director> directors;
 
     public Show(String title, int duration) {
         this.title = title;
@@ -63,6 +63,7 @@ public class Show {
             return "Актриса " + newActor + " уже участвует в постановке. Проверьте вводимые данные";
     }
 
+    //Getters and Setters=====================================
     public ArrayList<Actor> getActors() {
         return actors;
     }
@@ -70,4 +71,21 @@ public class Show {
     public ArrayList<Director> getDirectors() {
         return directors;
     }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public int getDuration() {
+        return duration;
+    }
+
+    public void setDuration(int duration) {
+        this.duration = duration;
+    }
+    //=========================================================
 }

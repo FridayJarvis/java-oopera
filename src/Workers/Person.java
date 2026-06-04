@@ -2,9 +2,9 @@ package Workers;
 
 import java.util.Objects;
 class Person {
-    protected String name;
-    protected String surname;
-    protected Genders gender;
+    private String name;
+    private String surname;
+    private Genders gender;
 
     protected Person(String name, String surname, Genders gender) {
         this.name = name;
@@ -12,9 +12,19 @@ class Person {
         this.gender = gender;
     }
 
+    //Getters and Setters=====================================
     public Genders getGender() {
         return gender;
     }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getSurname() {
+        return surname;
+    }
+    //=========================================================
 
     //Object methods============================
     @Override
@@ -24,6 +34,11 @@ class Person {
 
         Person person = (Person) obj;
         return Objects.equals(person.name, name) && Objects.equals(person.surname, surname) && Objects.equals(person.gender, gender);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(name, surname, gender);
     }
 
     @Override

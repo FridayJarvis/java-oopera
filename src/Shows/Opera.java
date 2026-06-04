@@ -1,9 +1,7 @@
 package Shows;
 
-import java.util.ArrayList;
-
-public class Opera extends MusicialShow{
-    int choirSize;
+public class Opera extends MusicalShow {
+    private int choirSize;
 
     protected Opera(String title, int duration, String libretto, int choirSize) {
         super(title, duration, libretto);
@@ -14,7 +12,13 @@ public class Opera extends MusicialShow{
         this(title, duration, "", choirSize);
     }
 
+    //Getters and Setters================================
+    public int getChoirSize() {
+        return choirSize;
+    }
+
     public void setChoirSize(int newChoirSize) {
         choirSize = newChoirSize;
     }
+    //===================================================
 }
