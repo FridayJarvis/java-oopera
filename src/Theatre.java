@@ -10,110 +10,126 @@ public class Theatre {
     private static final String PRINCE_IGOR_LIBRETTO = "Либретто для \"Князя Игоря\"";
 
     public static void main(String[] args) {
-        System.out.println("========================DRAMATIC===================================");
-
-        Show show = new Show("Горе от ума", 180);
-
         Actor actor1 = new Actor("Михаил", "Царев", Genders.MALE, 174);
         Actor actor2 = new Actor("Игорь", "Ильинский", Genders.MALE, 172);
         Actor actor3 = new Actor("Ольга", "Андровская", Genders.FEMALE, 165);
-        addActor(show, actor1);
-        addActor(show, actor1); //for test
-        addActor(show, actor2);
-        addActor(show, actor3);
 
         Director director1 = new Director("Константин", "Станиславский", Genders.MALE, 45);
-        Director director2 = new Director("Владимир" , "Немирович-Данченко", Genders.MALE, 30);
-        addDirector(show, director1);
-        addDirector(show, director1); //for test
-        addDirector(show, director2);
+        Director director2 = new Director("Владимир", "Немирович-Данченко", Genders.MALE, 30);
 
-        printActorsOfShow(show);
-        printActorsOfShow(show);
+        Person authorOfMusic = new Person("Пётр", "Чайковский", Genders.MALE);
 
-        System.out.println("\n=================================BALLET==================================\n");
+        Person choreographer = new Person("Мариус", "Петипа", Genders.MALE);
 
-        MusicalShow ballet = new Ballet("Лебединое озеро", 155, SWAN_LAKE_LIBRETTO);
-        printActorsOfShow(ballet); //for test
+        Show dramaticShow = new Show("Горе от ума", 180, director1);
+        MusicalShow ballet = new Ballet("Лебединое озеро", 155, director2, SWAN_LAKE_LIBRETTO, authorOfMusic, choreographer);
+        MusicalShow opera = new Opera("Князь Игорь", 210, director1, PRINCE_IGOR_LIBRETTO, authorOfMusic, 15);
 
-        Actor actor4 = new Actor("Сергей", "Лемешев", Genders.MALE, 167);
-        Actor actor5 = new Actor("Сергей", "Лемешев", Genders.MALE, 168);
+        System.out.println("=======================================Dramatic Show=======================================");
+        addActor(dramaticShow, actor1);
+        addActor(dramaticShow, actor2);
+        addActor(dramaticShow, actor3);
+        addActor(dramaticShow, actor3); //for test
+
+        System.out.println("=======================================Ballet Show=======================================");
         addActor(ballet, actor1);
-        addActor(ballet, actor4);
-        addActor(ballet, actor5);
+        addActor(ballet, actor2);
+        addActor(ballet, actor3);
 
-        addDirector(ballet, director1);
-        addDirector(ballet, director2);
-
-        AuthorOfMusic authorOfMusic1 = new AuthorOfMusic("Пётр", "Чайковский", Genders.MALE);
-        addAuthorOfMusic(ballet, authorOfMusic1);
-        addAuthorOfMusic(ballet, authorOfMusic1); //for test
-
-        Choreographer choreographer1 = new Choreographer("Мариус", "Петипа", Genders.MALE);
-        addChoreographer((Ballet) ballet, choreographer1);
-        addChoreographer((Ballet) ballet, choreographer1); //for test
-
-        printDirectorsOfShow(ballet);
-        printActorsOfShow(ballet);
-        printLibrettoOfMusicShow(ballet);
-
-        System.out.println("\n=======================OPERA====================================\n");
-
-        MusicalShow opera = new Opera("Князь Игорь", 210, 15);
-
+        System.out.println("=======================================Opera Show=======================================");
         addActor(opera, actor1);
         addActor(opera, actor3);
 
-        addDirector(opera, director1);
+        System.out.println("=======================================Dramatic Show=======================================");
+        dramaticShow.printActors();
 
-        addAuthorOfMusic(opera, new AuthorOfMusic("Александр", "Бородин", Genders.MALE));
+        System.out.println("=======================================Ballet Show=======================================");
+        ballet.printActors();
 
-        setLibretto(opera, PRINCE_IGOR_LIBRETTO);
-        setChoirSize((Opera)opera, 23);
+        System.out.println("=======================================Opera Show=======================================");
+        opera.printActors();
 
-        printDirectorsOfShow(opera);
-        printActorsOfShow(opera);
-        printLibrettoOfMusicShow(opera);
+        replaceActor(opera, "Андровская", actor2);
 
-        System.out.println("\n=============================REPLACE ACTOR TEST========================\n");
+        opera.printActors();
 
-        replaceActor(show, actor1, actor5);
-        printActorsOfShow(show);
+        System.out.println("=======================================Ballet Show=======================================");
+        replaceActor(ballet, "Шаляпин", new Actor("Владимир", "Васильев", Genders.MALE, 178));
 
-        replaceActor(show, actor1, actor5);
-        replaceActor(show, actor5, actor2);
-        replaceActor(show, actor5, actor5);
-        replaceActor(show, actor4, actor4);
+        System.out.println("=======================================Opera Show=======================================");
+        opera.printLibretto();
+
+        System.out.println("=======================================Ballet Show=======================================");
+        ballet.printLibretto();
     }
 
-    private static void setLibretto(MusicalShow musicalShow, String libretto) {
-        musicalShow.setLibretto(libretto);
-        System.out.println("Либретто установлено\n");
-    }
-
-    private static void setChoirSize(Opera opera, int newChoirSize) {
-        opera.setChoirSize(newChoirSize);
-        System.out.println("Размер хора установлен\n");
-    }
-
-    private static void addChoreographer(Ballet ballet, Choreographer choreographer) {
-        if (!ballet.addChoreographer(choreographer)) {
-            System.out.println("Этот хореограф уже участвует в постановке\n");
+    private static void setTitle(Show show, String title) {
+        if (!show.setTitle(title)) {
+            System.out.println("title = null");
             return;
         }
 
-        if (choreographer.getGender() == Genders.MALE)
-            System.out.println("Хореограф " + choreographer + " успешно добавлен");
-        else
-            System.out.println("Хореограф " + choreographer + " успешно добавлена");
+        System.out.println("Название установлено");
     }
 
-    private static void addAuthorOfMusic(MusicalShow musicalShow, AuthorOfMusic authorOfMusic) {
-        if (!musicalShow.addAuthorOfMusic(authorOfMusic)) {
-            if (authorOfMusic.getGender() == Genders.MALE)
-                System.out.println(authorOfMusic + " уже добавлен\n");
-            else
-                System.out.println(authorOfMusic + " уже добавлена");
+    private static void setDuration(Show show, int duration) {
+        if (show.setDuration(duration)) {
+            System.out.println("Введена отрицательная длительность");
+            return;
+        }
+
+        System.out.println("Длительность спектакля установлена");
+    }
+
+    private static void setNumberOfShows(Director director, int numberOfShows) {
+        if (!director.setNumberOfShows(numberOfShows)) {
+            System.out.println("Введено отрицательное количество постановок");
+            return;
+        }
+
+        System.out.println("Количество постановок установлено");
+    }
+
+    private static void setLibretto(MusicalShow musicalShow, String libretto) {
+        if (!musicalShow.setLibretto(libretto)) {
+            System.out.println("libretto = null\n");
+            return;
+        }
+
+        System.out.println("Либретто установлено\n");
+    }
+
+    private static void setAuthorOfMusic(MusicalShow musicalShow, Person authorOfMusic) {
+        if (!musicalShow.setAuthorOfMusic(authorOfMusic)) {
+            System.out.println("authorOfMusic = null!");
+            return;
+        }
+
+        System.out.println("Композитор установлен");
+    }
+
+    private static void setChoirSize(Opera opera, int choirSize) {
+        if (!opera.setChoirSize(choirSize))
+            System.out.println("Введен отрицательный размер состава хора\n");
+
+        System.out.println("Размер хора установлен\n");
+    }
+
+    private static void setDirector(Show show, Director director) {
+        if (!show.setDirector(director)) {
+            System.out.println("director = null");
+            return;
+        }
+
+        if (director.getGender() == Genders.MALE)
+            System.out.println("Режиссер " + director + " успешно добавлен\n");
+        else
+            System.out.println("Режиссер " + director + " успешно добавлена\n");
+    }
+
+    private static void setChoreographer(Ballet ballet, Person choreographer) {
+        if (!ballet.setChoreographer(choreographer)) {
+            System.out.println("choreographer = null");
         }
     }
 
@@ -130,34 +146,14 @@ public class Theatre {
             System.out.println("Актриса " + actor + " успешно добавлена в состав\n");
     }
 
-    private static void addDirector(Show show, Director director) {
-        if (!show.addDirector(director)) {
-            System.out.println("Режиссер " + director + " уже возглавляет постановку. Проверьте вводимые данные\n");
-            return;
-        }
-
-        if (director.getGender() == Genders.MALE)
-            System.out.println("Режиссер " + director + " успешно добавлен\n");
-        else
-            System.out.println("Режиссер " + director + " успешно добавлена\n");
-    }
-
-    private static void replaceActor(Show show, Actor oldActor, Actor newActor) {
-        Show.ReplaceActorResult result = show.replaceActor(oldActor, newActor);
+    private static void replaceActor(Show show, String surnameOfOldActor, Actor newActor) {
+        Show.ReplaceActorResult result = show.replaceActor(surnameOfOldActor, newActor);
 
         switch (result) {
             case SUCCESS:
-                String output = "";
-                if (oldActor.getGender() == Genders.MALE)
-                    output += "Актер " + oldActor + " успешно заменен на";
-                else
-                    output += "Актриса " + oldActor + " успешно заменена на";
+                Actor oldActor = show.getReplacedOldActor();
 
-                if (newActor.getGender() == Genders.MALE)
-                    output += " актера " + newActor;
-                else
-                    output += " актрису " + newActor;
-
+                String output = Show.getMessageIfSuccessReplace(newActor, oldActor);
                 System.out.println(output + "\n");
                 break;
             case NEW_ACTOR_ALREADY_EXIST:
@@ -165,65 +161,11 @@ public class Theatre {
                 System.out.println(Show.getMessageIfActorExist(newActor) + "\n");
                 break;
             case OLD_ACTOR_NOT_FOUND:
-                if (oldActor.getGender() == Genders.MALE)
-                    System.out.println("Актера " + oldActor + " нет. Проверьте вводимые данные\n");
-                else
-                    System.out.println("Актрисы " + oldActor + " нет. Проверьте вводимые данные\n");
+                System.out.println("Актера/актрисы с фамилией " + surnameOfOldActor + " нет. Проверьте вводимые данные\n");
+                break;
+            case ERROR:
+                System.out.println("Ошибка: неверные входные параметры внутри бэкэнда\n");
                 break;
         }
-    }
-
-    private static void printActorsOfShow(Show show) {
-        var actors = show.getActors();
-        if (actors.isEmpty()) {
-            System.out.println("Актеры пока не добавлены\n");
-            return;
-        }
-
-        System.out.println("Актерский состав: ");
-        System.out.println(actors + "\n");
-    }
-
-    private static void printDirectorsOfShow(Show show) {
-        var directors = show.getDirectors();
-        if (directors.isEmpty()) {
-            System.out.println("У представления пока нет режиссера\n");
-            return;
-        }
-
-        System.out.println("Режиссеры:");
-        System.out.println(directors);
-    }
-
-    private static void printLibrettoOfMusicShow(MusicalShow musicalShow) {
-        String libretto = musicalShow.getLibretto();
-        if (libretto.isEmpty()) {
-            System.out.println("У представления пока нет либретто\n");
-            return;
-        }
-        System.out.println("Либретто:");
-        System.out.println(libretto + "\n");
-    }
-
-    private static void printAuthorsOfMusicShow(MusicalShow musicalShow) {
-        var authorsOfMusic = musicalShow.getAuthorsOfMusic();
-        if (authorsOfMusic.isEmpty()) {
-            System.out.println("Композиции пока не добавлены");
-            return;
-        }
-
-        System.out.println("Авторы композиций:");
-        System.out.println(authorsOfMusic + "\n");
-    }
-
-    private static void printChoreographers(Ballet ballet) {
-        var choreographers = ballet.getChoreographers();
-        if (choreographers.isEmpty()) {
-            System.out.println("Хореографы пока не добавлены");
-            return;
-        }
-
-        System.out.println("Хореографы");
-        System.out.println(choreographers + "\n");
     }
 }

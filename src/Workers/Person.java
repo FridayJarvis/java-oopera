@@ -1,12 +1,13 @@
 package Workers;
 
 import java.util.Objects;
-class Person {
-    private String name;
-    private String surname;
-    private Genders gender;
 
-    protected Person(String name, String surname, Genders gender) {
+public class Person {
+    protected String name;
+    protected String surname;
+    protected Genders gender;
+
+    public Person(String name, String surname, Genders gender) {
         this.name = name;
         this.surname = surname;
         this.gender = gender;

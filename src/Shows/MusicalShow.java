@@ -1,42 +1,62 @@
 package Shows;
 
-import Workers.AuthorOfMusic;
-
-import java.util.ArrayList;
+import Workers.Director;
+import Workers.Person;
 
 public class MusicalShow extends Show {
-    private String libretto;
-    private ArrayList<AuthorOfMusic> authorsOfMusic;
+    protected String libretto;
+    protected Person authorOfMusic;
 
-    protected MusicalShow(String title, int duration, String libretto) {
-        super(title, duration);
+    protected MusicalShow(String title, int duration, Director director, String libretto, Person authorOfMusic) {
+        super(title, duration, director);
         this.libretto = libretto;
-        this.authorsOfMusic = new ArrayList<>();
+        this.authorOfMusic = authorOfMusic;
     }
 
-    protected MusicalShow(String title, int duration) {
-        this(title, duration, "");
+    public void printLibretto() {
+        if (libretto == null || libretto.isEmpty()) {
+            System.out.println("У представления пока нет либретто\n");
+            return;
+        }
+
+        System.out.println("Либретто:");
+        System.out.println(libretto);
     }
 
     //Getters and Setters=====================================
+    public boolean setLibretto(String libretto) {
+        if (libretto == null)
+            return false;
+
+        this.libretto = libretto;
+        return true;
+    }
+
     public String getLibretto() {
         return libretto;
     }
 
-    public void setLibretto(String libretto) {
-        this.libretto = libretto;
+    public Person getAuthorOfMusic() {
+        return authorOfMusic;
     }
 
-    public ArrayList<AuthorOfMusic> getAuthorsOfMusic() {
-        return authorsOfMusic;
+    public boolean setAuthorOfMusic(Person authorOfMusic) {
+        if (authorOfMusic == null) {
+            return false;
+        }
+
+        this.authorOfMusic = authorOfMusic;
+        return true;
     }
     //=========================================================
 
-    public boolean addAuthorOfMusic(AuthorOfMusic authorOfMusic) {
-        if (authorsOfMusic.contains(authorOfMusic))
-            return false;
+    public void printAuthorOfMusic() {
+        if (authorOfMusic == null) {
+            System.out.println("AuthorOfMusic = null");
+            return;
+        }
 
-        authorsOfMusic.add(authorOfMusic);
-        return true;
+        System.out.println("Автор композиций:");
+        System.out.println(authorOfMusic + "\n");
     }
 }

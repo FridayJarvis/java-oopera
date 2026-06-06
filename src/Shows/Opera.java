@@ -1,15 +1,14 @@
 package Shows;
 
+import Workers.Director;
+import Workers.Person;
+
 public class Opera extends MusicalShow {
     private int choirSize;
 
-    protected Opera(String title, int duration, String libretto, int choirSize) {
-        super(title, duration, libretto);
+    public Opera(String title, int duration, Director director, String libretto, Person authorOfMusic, int choirSize) {
+        super(title, duration, director, libretto, authorOfMusic);
         this.choirSize = choirSize;
-    }
-
-    public Opera(String title, int duration, int choirSize) {
-        this(title, duration, "", choirSize);
     }
 
     //Getters and Setters================================
@@ -17,8 +16,12 @@ public class Opera extends MusicalShow {
         return choirSize;
     }
 
-    public void setChoirSize(int newChoirSize) {
-        choirSize = newChoirSize;
+    public boolean setChoirSize(int choirSize) {
+        if (choirSize < 0)
+            return false;
+
+        this.choirSize = choirSize;
+        return true;
     }
     //===================================================
 }

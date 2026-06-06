@@ -15,8 +15,12 @@ public class Director extends Person {
         return numberOfShows;
     }
 
-    public void setNumberOfShows(int numberOfShows) {
+    public boolean setNumberOfShows(int numberOfShows) {
+        if (numberOfShows < 0)
+            return false;
+
         this.numberOfShows = numberOfShows;
+        return true;
     }
     //=========================================================
 
@@ -27,6 +31,11 @@ public class Director extends Person {
         if (obj == null || getClass() != obj.getClass()) return false;
 
         return super.equals(obj) && ((Director) obj).numberOfShows == numberOfShows;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(super.hashCode(), numberOfShows);
     }
     //==========================================
 }

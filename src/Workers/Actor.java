@@ -3,7 +3,7 @@ package Workers;
 import java.util.Objects;
 
 public class Actor extends Person {
-    private int height;
+    protected int height;
 
     public Actor(String name, String surname, Genders gender, int height) {
         super(name, surname, gender);
@@ -13,10 +13,6 @@ public class Actor extends Person {
     //Getters and setters======================
     public int getHeight() {
         return height;
-    }
-
-    public void setHeight(int height) {
-        this.height = height;
     }
     //==========================================
 
@@ -30,8 +26,13 @@ public class Actor extends Person {
     }
 
     @Override
+    public int hashCode() {
+        return Objects.hash(super.hashCode(), height);
+    }
+
+    @Override
     public String toString() {
-        return getName() + " " + getSurname() + " (" + height + " см)";
+        return name + " " + surname + " (" + height + " см)";
     }
     //==========================================
 }

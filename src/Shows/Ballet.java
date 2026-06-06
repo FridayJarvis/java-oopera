@@ -1,32 +1,37 @@
 package Shows;
 
-import Workers.Choreographer;
-
-import java.util.ArrayList;
+import Workers.Director;
+import Workers.Person;
 
 public class Ballet extends MusicalShow {
-    private ArrayList<Choreographer> choreographers;
+    private Person choreographer;
 
-    public Ballet(String title, int duration, String libretto) {
-        super(title, duration, libretto);
-        choreographers = new ArrayList<>();
-    }
-
-    public Ballet(String title, int duration) {
-        this(title, duration, "");
+    public Ballet(String title, int duration, Director director, String libretto, Person authorOfMusic, Person choreographer) {
+        super(title, duration, director, libretto, authorOfMusic);
+        this.choreographer = choreographer;
     }
 
     //Getters and Setters================================
-    public ArrayList<Choreographer> getChoreographers() {
-        return choreographers;
+    public Person getChoreographer() {
+        return choreographer;
+    }
+
+    public boolean setChoreographer(Person choreographer) {
+        if (choreographer == null)
+            return false;
+
+        this.choreographer = choreographer;
+        return true;
     }
     //===================================================
 
-    public boolean addChoreographer(Choreographer choreographer){
-        if (choreographers.contains(choreographer))
-            return false;
+    public void printChoreographer() {
+        if (choreographer == null) {
+            System.out.println("choreographer = null");
+            return;
+        }
 
-        choreographers.add(choreographer);
-        return true;
+        System.out.println("Хореограф балета:");
+        System.out.println(choreographer + "\n");
     }
 }
